@@ -79,20 +79,27 @@ public class FigureView extends View {
             radius = height/2 - padding;
         }
 
+        //тень
         canvas.drawCircle(width/2 + bias, height/2 + bias, radius, paintShadow);
+        //граница
         canvas.drawCircle(width/2, height/2, radius, paintLine);
+        //сама фигура
         canvas.drawCircle(width/2, height/2, radius - line, paint);
     }
 
     private void drawRectView(Canvas canvas, int height, int width){
 
+        //тень
         canvas.drawRect(padding + bias, padding + bias, width - padding + bias, height - padding + bias, paintShadow);
+        //граница
         canvas.drawRect(padding, padding, width - padding, height - padding, paintLine);
+        //сама фигура
         canvas.drawRect(padding + line, padding + line, width - padding - line, height - padding - line, paint);
     }
 
     private void drawTriangleView(Canvas canvas, int height, int width){
 
+        //тень
         Point aS = new Point(width/2 + bias, padding + bias);
         Point bS = new Point(padding + bias, height-padding + bias);
         Point cS = new Point(width-padding + bias, height-padding + bias);
@@ -108,24 +115,10 @@ public class FigureView extends View {
 
         canvas.drawPath(pathS, paintShadow);
 
-        Point a = new Point(width/2, padding);
-        Point b = new Point(padding, height-padding);
-        Point c = new Point(width-padding, height-padding);
-
-        Path path = new Path();
-        path.setFillType(Path.FillType.EVEN_ODD);
-
-        path.lineTo(a.x, a.y);
-        path.lineTo(b.x, b.y);
-        path.lineTo(c.x, c.y);
-        path.lineTo(a.x, a.y);
-        path.close();
-
-        canvas.drawPath(path, paintLine);
-
-        Point aL = new Point(width/2, padding + line + line);
-        Point bL = new Point(padding + line + line, height-padding - line) ;
-        Point cL = new Point(width-padding - line - line, height-padding - line);
+        //граница
+        Point aL = new Point(width/2, padding);
+        Point bL = new Point(padding, height-padding);
+        Point cL = new Point(width-padding, height-padding);
 
         Path pathL = new Path();
         pathL.setFillType(Path.FillType.EVEN_ODD);
@@ -136,7 +129,23 @@ public class FigureView extends View {
         pathL.lineTo(aL.x, aL.y);
         pathL.close();
 
-        canvas.drawPath(pathL, paint);
+        canvas.drawPath(pathL, paintLine);
+
+        //сама фигура
+        Point a = new Point(width/2, padding + line + line);
+        Point b = new Point(padding + line + line, height-padding - line) ;
+        Point c = new Point(width-padding - line - line, height-padding - line);
+
+        Path path = new Path();
+        path.setFillType(Path.FillType.EVEN_ODD);
+
+        path.lineTo(a.x, a.y);
+        path.lineTo(b.x, b.y);
+        path.lineTo(c.x, c.y);
+        path.lineTo(a.x, a.y);
+        path.close();
+
+        canvas.drawPath(path, paint);
     }
 
     public int getFigureType() {
